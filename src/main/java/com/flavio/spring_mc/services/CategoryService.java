@@ -2,6 +2,7 @@ package com.flavio.spring_mc.services;
 
 import com.flavio.spring_mc.entities.models.Category;
 import com.flavio.spring_mc.repository.CategoryRepository;
+import com.flavio.spring_mc.services.exceptions.ObjectNotFoundExcepetion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,7 @@ public class CategoryService {
 
     public Category findById(Integer id){
         Optional<Category> catOpt = categoryRepository.findById(id);
-        return new Category(catOpt.get().getId(), catOpt.get().getName());
-
+        return catOpt.orElseThrow(() -> new ObjectNotFoundExcepetion("Object not found"));
     }
 
     public List<Category> findAll() {

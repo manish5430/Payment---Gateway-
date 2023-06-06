@@ -36,15 +36,17 @@ public class Initialize implements CommandLineRunner {
         Product prod2 = new Product(null, "Banner", 1256.00);
         Product prod3 = new Product(null, "Curso de Lógica", 1256.00);
         Product prod4 = new Product(null, "Cabo de rede", 1256.00);
+        Product prod5 = new Product(null, "Scanner", 800.00);
 
-        cat1.getProducts().addAll(Arrays.asList(prod1, prod2, prod3, prod4));
+        cat1.getProducts().addAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5));
         prod1.getCategories().add(cat1);
         prod2.getCategories().add(cat2);
         prod3.getCategories().add(cat4);
         prod4.getCategories().add(cat5);
+        prod5.getCategories().add(cat1);
 
         repository.saveAll(categories);
-        productRepository.saveAll(Arrays.asList(prod1,prod2,prod3,prod4));
+        productRepository.saveAll(Arrays.asList(prod1,prod2,prod3,prod4, prod5));
 
     }
 }

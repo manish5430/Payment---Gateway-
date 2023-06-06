@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
-public class categoryResource {
+public class CategoryResource {
 
     @Autowired
     CategoryService categoryService;
