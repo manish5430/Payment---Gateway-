@@ -1,8 +1,12 @@
 package com.flavio.spring_mc.config;
 
 import com.flavio.spring_mc.entities.models.Category;
+import com.flavio.spring_mc.entities.models.Cidade;
+import com.flavio.spring_mc.entities.models.Estado;
 import com.flavio.spring_mc.entities.models.Product;
 import com.flavio.spring_mc.repository.CategoryRepository;
+import com.flavio.spring_mc.repository.CidadeRepository;
+import com.flavio.spring_mc.repository.EstadoRepository;
 import com.flavio.spring_mc.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +23,13 @@ public class Initialize implements CommandLineRunner {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    CidadeRepository cidadeRepository;
+
+    @Autowired
+    EstadoRepository estadoRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -44,6 +55,20 @@ public class Initialize implements CommandLineRunner {
         prod3.getCategories().add(cat4);
         prod4.getCategories().add(cat5);
         prod5.getCategories().add(cat1);
+
+        Estado est1 = new Estado(null, "Minas Gerais");
+        Estado est2 = new Estado(null, "São Paulo");
+
+        Cidade cid1 = new Cidade(null, "Uberlândia", est1);
+        Cidade cid2 = new Cidade(null, "São Paulo", est2);
+        Cidade cid3 = new Cidade(null, "Campinas", est2);
+        Cidade cid4 = new Cidade(null, "Diamantina", est1);
+
+        est1.getCidades().addAll(Arrays.asList(cid1, cid4));
+        est2.getCidades().addAll(Arrays.asList(cid2, cid3));
+
+        estadoRepository.saveAll(Arrays.asList(est1,est2));
+        cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3, cid4));
 
         repository.saveAll(categories);
         productRepository.saveAll(Arrays.asList(prod1,prod2,prod3,prod4, prod5));
