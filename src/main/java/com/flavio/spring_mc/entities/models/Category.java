@@ -1,5 +1,6 @@
 package com.flavio.spring_mc.entities.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -19,7 +20,7 @@ public class Category implements Serializable {
     private Integer id;
     private String name;
 
-    @JsonManagedReference
+    @JsonIgnore
     @ManyToMany(mappedBy = "categories")
     private List<Product> products = new ArrayList<>();
 

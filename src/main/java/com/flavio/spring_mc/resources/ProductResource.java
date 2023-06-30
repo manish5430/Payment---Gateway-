@@ -1,8 +1,7 @@
 package com.flavio.spring_mc.resources;
 
-import com.flavio.spring_mc.entities.models.Category;
+
 import com.flavio.spring_mc.entities.models.Product;
-import com.flavio.spring_mc.services.CategoryService;
 import com.flavio.spring_mc.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

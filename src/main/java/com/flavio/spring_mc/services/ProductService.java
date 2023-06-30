@@ -1,8 +1,6 @@
 package com.flavio.spring_mc.services;
 
-import com.flavio.spring_mc.entities.models.Category;
 import com.flavio.spring_mc.entities.models.Product;
-import com.flavio.spring_mc.repository.CategoryRepository;
 import com.flavio.spring_mc.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

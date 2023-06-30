@@ -1,5 +1,7 @@
 package com.flavio.spring_mc.entities.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.flavio.spring_mc.enuns.TypeClient;
 import jakarta.persistence.*;
 
@@ -18,6 +20,7 @@ public class Client implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
     private String mail;
     private String cpfOrCnpj;
@@ -27,7 +30,9 @@ public class Client implements Serializable {
     @CollectionTable(name = "phone")
     private Set<String> phones = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
+
     private List<Address> addresses = new ArrayList<>();
 
     public Client() {
@@ -100,7 +105,7 @@ public class Client implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Client client)) return false;
+        if (!(o instanceof Category client)) return false;
 
         if (getId() != null ? !getId().equals(client.getId()) : client.getId() != null) return false;
         return getName() != null ? getName().equals(client.getName()) : client.getName() == null;
