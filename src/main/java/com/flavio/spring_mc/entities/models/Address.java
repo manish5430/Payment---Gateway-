@@ -1,13 +1,30 @@
 package com.flavio.spring_mc.entities.models;
 
-public class Address {
+import jakarta.persistence.*;
+
+import java.io.Serial;
+import java.io.Serializable;
+
+@Entity
+public class Address implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     private String street;
     private String number;
     private String complement;
     private String district;
     private String zipCode;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
     private City city;
 
     public Address() {

@@ -1,13 +1,8 @@
 package com.flavio.spring_mc.config;
 
-import com.flavio.spring_mc.entities.models.Category;
-import com.flavio.spring_mc.entities.models.City;
-import com.flavio.spring_mc.entities.models.State;
-import com.flavio.spring_mc.entities.models.Product;
-import com.flavio.spring_mc.repository.CategoryRepository;
-import com.flavio.spring_mc.repository.CidadeRepository;
-import com.flavio.spring_mc.repository.EstadoRepository;
-import com.flavio.spring_mc.repository.ProductRepository;
+import com.flavio.spring_mc.entities.models.*;
+import com.flavio.spring_mc.enuns.TypeClient;
+import com.flavio.spring_mc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +24,12 @@ public class Initialize implements CommandLineRunner {
 
     @Autowired
     EstadoRepository estadoRepository;
+
+    @Autowired
+    ClientRepository clientRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
 
 
     @Override
@@ -73,5 +74,30 @@ public class Initialize implements CommandLineRunner {
         repository.saveAll(categories);
         productRepository.saveAll(Arrays.asList(prod1,prod2,prod3,prod4, prod5));
 
+        Client cli1 = new Client(null, "Maria da Silva","maria@gmail.com", "12345678910", TypeClient.PESSOAFISICA);
+        cli1.getPhones().addAll(Arrays.asList("12345678","98746541"));
+
+        Address ad1 = new Address(null,
+                "Rua Flores",
+                "300",
+                "Apto 303",
+                "Jardim",
+                "38220384",
+                cli1, cid1
+                );
+
+        Address ad2 = new Address(null,
+                "Rua Pitanga",
+                "300",
+                "Apto 300",
+                "Jardim",
+                "38220454",
+                cli1, cid2
+        );
+
+        cli1.getAddresses().addAll(Arrays.asList(ad1, ad2));
+
+        clientRepository.save(cli1);
+        addressRepository.saveAll(Arrays.asList(ad1, ad2));
     }
 }

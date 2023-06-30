@@ -1,32 +1,44 @@
 package com.flavio.spring_mc.entities.models;
 
 import com.flavio.spring_mc.enuns.TypeClient;
+import jakarta.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Client {
+@Entity
+public class Client implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String mail;
     private String cpfOrCnpj;
     private Integer typeClient;
+
+    @ElementCollection
+    @CollectionTable(name = "phone")
     private Set<String> phones = new HashSet<>();
 
+    @OneToMany(mappedBy = "client")
     private List<Address> addresses = new ArrayList<>();
 
     public Client() {
     }
 
-    public Client(Integer id, String name, String mail, String cpfOrCnpj, TypeClient typeClient, Set<String> phones) {
+    public Client(Integer id, String name, String mail, String cpfOrCnpj, TypeClient typeClient) {
         this.id = id;
         this.name = name;
         this.mail = mail;
         this.cpfOrCnpj = cpfOrCnpj;
         this.typeClient = typeClient.getCod();
-        this.phones = phones;
     }
 
     public Integer getId() {
