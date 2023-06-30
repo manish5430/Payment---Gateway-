@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity()
-public class Estado implements Serializable {
+public class State implements Serializable {
     @Serial
     private static final long serialVersionUID=1L;
 
@@ -16,13 +16,13 @@ public class Estado implements Serializable {
     private Integer id;
     private String name;
 
-    @OneToMany(mappedBy = "estado")
-    private List<Cidade> cidades = new ArrayList<>();
+    @OneToMany(mappedBy = "state")
+    private List<City> cities = new ArrayList<>();
 
-    public Estado() {
+    public State() {
     }
 
-    public Estado(Integer id, String name) {
+    public State(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -43,25 +43,25 @@ public class Estado implements Serializable {
         this.name = name;
     }
 
-    public List<Cidade> getCidades() {
-        return cidades;
+    public List<City> getCity() {
+        return cities;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Estado estado)) return false;
+        if (!(o instanceof State state)) return false;
 
-        if (getId() != null ? !getId().equals(estado.getId()) : estado.getId() != null) return false;
-        if (getName() != null ? !getName().equals(estado.getName()) : estado.getName() != null) return false;
-        return getCidades() != null ? getCidades().equals(estado.getCidades()) : estado.getCidades() == null;
+        if (getId() != null ? !getId().equals(state.getId()) : state.getId() != null) return false;
+        if (getName() != null ? !getName().equals(state.getName()) : state.getName() != null) return false;
+        return getCity() != null ? getCity().equals(state.getCity()) : state.getCity() == null;
     }
 
     @Override
     public int hashCode() {
         int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + (getCidades() != null ? getCidades().hashCode() : 0);
+        result = 31 * result + (getCity() != null ? getCity().hashCode() : 0);
         return result;
     }
 
@@ -70,7 +70,7 @@ public class Estado implements Serializable {
         return "Estado{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", cidades=" + cidades +
+                ", cidades=" + cities +
                 '}';
     }
 }
