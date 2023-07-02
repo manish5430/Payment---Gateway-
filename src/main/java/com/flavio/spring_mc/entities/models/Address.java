@@ -1,12 +1,11 @@
 package com.flavio.spring_mc.entities.models;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "tb_address")
 public class Address implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

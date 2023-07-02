@@ -1,13 +1,14 @@
-package com.flavio.spring_mc.enuns;
+package com.flavio.spring_mc.entities.enums;
 
-public enum TypeClient {
-    PESSOAFISICA(1, "Pessoa Fisíca"),
-    PESSOAJURIDICA(2, "Pessoa Jurídica");
+public enum StatusPayment {
+    PENDING(1, "PENDING"),
+    PAID(2, "PAID"),
+    CANCELED(3, "CANCELED");
 
     private int cod;
     private String descricacao;
 
-    private TypeClient(int cod, String descricacao) {
+    private StatusPayment(int cod, String descricacao) {
         this.cod = cod;
         this.descricacao = descricacao;
     }
@@ -20,12 +21,12 @@ public enum TypeClient {
         return descricacao;
     }
 
-    public static TypeClient toEnum(Integer cod){
+    public static StatusPayment toEnum(Integer cod){
         if(cod == null){
             return null;
         }
 
-        for(TypeClient x : TypeClient.values()){
+        for(StatusPayment x : StatusPayment.values()){
             if(cod == x.getCod()){
                 return x;
             }

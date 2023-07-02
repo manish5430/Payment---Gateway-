@@ -1,14 +1,13 @@
 package com.flavio.spring_mc.entities.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "tb_product")
 public class Product implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -20,7 +19,7 @@ public class Product implements Serializable {
     private Double price;
 
     @ManyToMany
-    @JoinTable(name = "PRODUCT_CATEGORY", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = "TB_PRODUCT_CATEGORY", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     List<Category> categories = new ArrayList<>();
 
     public Product() {

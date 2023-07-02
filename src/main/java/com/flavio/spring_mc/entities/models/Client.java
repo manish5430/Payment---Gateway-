@@ -1,8 +1,7 @@
 package com.flavio.spring_mc.entities.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.flavio.spring_mc.enuns.TypeClient;
+import com.flavio.spring_mc.entities.enums.TypeClient;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -13,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "tb_client")
 public class Client implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -27,13 +27,16 @@ public class Client implements Serializable {
     private Integer typeClient;
 
     @ElementCollection
-    @CollectionTable(name = "phone")
+    @CollectionTable(name = "tb_phone")
     private Set<String> phones = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "client")
-
     private List<Address> addresses = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
 
     public Client() {
     }
@@ -57,6 +60,11 @@ public class Client implements Serializable {
     public String getName() {
         return name;
     }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
 
     public void setName(String name) {
         this.name = name;

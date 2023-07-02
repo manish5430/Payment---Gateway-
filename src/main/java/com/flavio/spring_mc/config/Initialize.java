@@ -1,12 +1,15 @@
 package com.flavio.spring_mc.config;
 
+import com.flavio.spring_mc.entities.enums.StatusPayment;
 import com.flavio.spring_mc.entities.models.*;
-import com.flavio.spring_mc.enuns.TypeClient;
+import com.flavio.spring_mc.entities.enums.TypeClient;
 import com.flavio.spring_mc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -30,6 +33,12 @@ public class Initialize implements CommandLineRunner {
 
     @Autowired
     AddressRepository addressRepository;
+
+    @Autowired
+    PaymentRepository paymentRepository;
+
+    @Autowired
+    OrderRepository orderRepository;
 
 
     @Override
@@ -99,5 +108,19 @@ public class Initialize implements CommandLineRunner {
 
         clientRepository.save(cli1);
         addressRepository.saveAll(Arrays.asList(ad1, ad2));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Order order1 = new Order(null, sdf.parse("30/09/2017 10:30").toInstant(), cli1, ad1);
+        Order order2 = new Order(null, sdf.parse("01/10/2017 11:40").toInstant(), cli1, ad2);
+
+        Payment pay1 = new PaymentWithCard(null, StatusPayment.PAID, order1, 6);
+        order1.setPayment(pay1);
+
+        Payment pay2 = new PaymentWithTicket(null, StatusPayment.PENDING, order2, sdf.parse("20/10/2017 00:00").toInstant(), null);
+        order2.setPayment(pay2);
+
+        cli1.getOrders().addAll(Arrays.asList(order1, order2));
+
+        orderRepository.saveAll(Arrays.asList(order1, order2));
+        paymentRepository.saveAll(Arrays.asList(pay1, pay2));
     }
 }
