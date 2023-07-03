@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_product")
@@ -22,6 +24,9 @@ public class Product implements Serializable {
     @JoinTable(name = "TB_PRODUCT_CATEGORY", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     List<Category> categories = new ArrayList<>();
 
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> orderItems = new HashSet<>();
+
     public Product() {
     }
 
@@ -29,6 +34,14 @@ public class Product implements Serializable {
         this.id = id;
         this.name = name;
         this.price = price;
+    }
+
+    public List<Order> getListOrders(){
+        List<Order> list = new ArrayList<>();
+        for(OrderItem item : orderItems){
+            list.add(item.getOrder());
+        }
+        return list;
     }
 
     public Integer getId() {
@@ -57,6 +70,14 @@ public class Product implements Serializable {
 
     public List<Category> getCategories() {
         return categories;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     @Override

@@ -40,6 +40,9 @@ public class Initialize implements CommandLineRunner {
     @Autowired
     OrderRepository orderRepository;
 
+    @Autowired
+    OrderItemRepository orderItemRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
@@ -122,5 +125,22 @@ public class Initialize implements CommandLineRunner {
 
         orderRepository.saveAll(Arrays.asList(order1, order2));
         paymentRepository.saveAll(Arrays.asList(pay1, pay2));
+
+        OrderItem orderItem1 = new OrderItem(order1, prod1, 0.0, 1,2000.00 );
+        OrderItem orderItem2 = new OrderItem(order1, prod3, 0.0, 2,80.00 );
+        OrderItem orderItem3 = new OrderItem(order2, prod2, 100.0, 1,800.00 );
+
+        order1.getOrderItems().addAll(Arrays.asList(orderItem1, orderItem2));
+        order2.getOrderItems().add(orderItem3);
+
+        prod1.getOrderItems().add(orderItem1);
+        prod2.getOrderItems().add(orderItem3);
+        prod3.getOrderItems().add(orderItem2);
+
+        orderItemRepository.saveAll(Arrays.asList(orderItem1, orderItem2, orderItem3));
+
+
+
+
     }
 }

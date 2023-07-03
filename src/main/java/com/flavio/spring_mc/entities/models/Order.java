@@ -6,6 +6,8 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -29,6 +31,10 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "delivery_id")
     private Address deliveryAddress;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> orderItems = new HashSet<>();
+
 
     public Order() {
     }
@@ -80,6 +86,14 @@ public class Order implements Serializable {
         this.deliveryAddress = deliveryAddress;
     }
 
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -92,4 +106,6 @@ public class Order implements Serializable {
     public int hashCode() {
         return getId() != null ? getId().hashCode() : 0;
     }
+
+
 }
