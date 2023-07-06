@@ -1,5 +1,6 @@
 package com.flavio.spring_mc.entities.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
@@ -24,6 +25,7 @@ public class Product implements Serializable {
     @JoinTable(name = "TB_PRODUCT_CATEGORY", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     List<Category> categories = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> orderItems = new HashSet<>();
 
@@ -36,6 +38,7 @@ public class Product implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public List<Order> getListOrders(){
         List<Order> list = new ArrayList<>();
         for(OrderItem item : orderItems){

@@ -1,5 +1,6 @@
 package com.flavio.spring_mc.entities.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.flavio.spring_mc.entities.enums.StatusPayment;
 import jakarta.persistence.*;
 
@@ -17,6 +18,7 @@ public abstract class Payment implements Serializable {
     private Integer id;
     private Integer statusPayment;
 
+    @JsonIgnore
     @OneToOne
     @MapsId //Combinando o ID
     @JoinColumn(name = "order_id")

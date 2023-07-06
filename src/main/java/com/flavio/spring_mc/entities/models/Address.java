@@ -1,4 +1,5 @@
 package com.flavio.spring_mc.entities.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -19,10 +20,12 @@ public class Address implements Serializable {
     private String district;
     private String zipCode;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;

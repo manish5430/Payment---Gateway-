@@ -1,7 +1,9 @@
 package com.flavio.spring_mc.resources;
 
 import com.flavio.spring_mc.entities.models.Category;
+import com.flavio.spring_mc.entities.models.Order;
 import com.flavio.spring_mc.services.CategoryService;
+import com.flavio.spring_mc.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,27 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/categories")
-public class CategoryResource {
+@RequestMapping("/orders")
+public class OrderResource {
 
     @Autowired
-    CategoryService categoryService;
+    OrderService orderService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> find(@PathVariable Integer id) {
-        Category obj = categoryService.findById(id);
-        return ResponseEntity.ok().body(obj);
-    }
-
-    @GetMapping()
-    public ResponseEntity<List<Category>> findAll() {
-        List<Category> list = categoryService.findAll();
-        return ResponseEntity.ok().body(list);
-    }
-
-    @PostMapping
-    public ResponseEntity<Category> inserCategory(@RequestBody Category category) {
-        Category obj = categoryService.insertCategory(category);
+    public ResponseEntity<Order> find(@PathVariable Integer id) {
+        Order obj = orderService.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 }

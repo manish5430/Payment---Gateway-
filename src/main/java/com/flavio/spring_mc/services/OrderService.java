@@ -1,30 +1,21 @@
 package com.flavio.spring_mc.services;
 
-import com.flavio.spring_mc.entities.models.Product;
-import com.flavio.spring_mc.repository.ProductRepository;
+import com.flavio.spring_mc.entities.models.Order;
+import com.flavio.spring_mc.repository.OrderRepository;
+import com.flavio.spring_mc.services.exceptions.ObjectNotFoundExcepetion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
+public class OrderService {
 
     @Autowired
-    ProductRepository productRepository;
+    OrderRepository orderRepository;
 
-    public Product insertProduct(Product prod){
-        return productRepository.save(prod);
-    }
-
-    public Product findById(Integer id){
-        Optional<Product> prodOpt = productRepository.findById(id);
-        return new Product(prodOpt.get().getId(), prodOpt.get().getName(), prodOpt.get().getPrice());
-
-    }
-
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public Order findById(Integer id){
+        Optional<Order> orderOpt = orderRepository.findById(id);
+        return orderOpt.orElseThrow(() -> new ObjectNotFoundExcepetion("Object not found"));
     }
 }

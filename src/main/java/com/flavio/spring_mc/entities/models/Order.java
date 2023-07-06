@@ -1,5 +1,6 @@
 package com.flavio.spring_mc.entities.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -27,6 +28,7 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
 
     @ManyToOne
     @JoinColumn(name = "delivery_id")
