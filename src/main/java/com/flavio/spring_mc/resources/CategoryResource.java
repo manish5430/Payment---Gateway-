@@ -5,7 +5,9 @@ import com.flavio.spring_mc.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -29,7 +31,17 @@ public class CategoryResource {
 
     @PostMapping
     public ResponseEntity<Category> inserCategory(@RequestBody Category category) {
-        Category obj = categoryService.insertCategory(category);
-        return ResponseEntity.ok().body(obj);
+
+        category = categoryService.insertCategory(category);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(category.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Category> updateCategory(@RequestBody Category category, @PathVariable Integer id) {
+        category = categoryService.updateCategory(category);
+        return ResponseEntity.noContent().build();
+    }
+
 }
