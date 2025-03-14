@@ -1,16 +1,14 @@
 package com.flavio.spring_mc.controllers;
+
 import com.flavio.spring_mc.services.PayPalService;
 import com.paypal.api.payments.Payment;
-
 import jakarta.servlet.http.HttpServletResponse;
-
 import com.paypal.api.payments.Links;
-
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/payments")
@@ -20,30 +18,30 @@ public class PaymentController {
     private PayPalService payPalService;
 
     @GetMapping("/create")
-public void createPayment(@RequestParam double total, HttpServletResponse response) throws IOException {
-    try {
-        Payment payment = payPalService.createPayment(
-            total,
-            "USD",
-            "paypal",
-            "sale",
-            "Payment description",
-            "http://localhost:8090/payments/cancel",
-            "http://localhost:8090/payments/success"
-        );
+    public void createPayment(@RequestParam double total, HttpServletResponse response) throws IOException {
+        try {
+            Payment payment = payPalService.createPayment(
+                total,
+                "USD",
+                "paypal",
+                "sale",
+                "Payment description",
+                "https://my-app-hckg.onrender.com/payments/cancel",  // Updated cancel URL
+                "https://my-app-hckg.onrender.com/payments/success" // Updated success URL
+            );
 
-        String approvalLink = payment.getLinks().stream()
-                .filter(link -> "approval_url".equals(link.getRel()))
-                .findFirst()
-                .map(Links::getHref)
-                .orElseThrow(() -> new RuntimeException("Approval link not found"));
+            String approvalLink = payment.getLinks().stream()
+                    .filter(link -> "approval_url".equals(link.getRel()))
+                    .findFirst()
+                    .map(Links::getHref)
+                    .orElseThrow(() -> new RuntimeException("Approval link not found"));
 
-        // Redirect directly to PayPal login page
-        response.sendRedirect(approvalLink);
-    } catch (Exception e) {
-        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error creating payment: " + e.getMessage());
+            // Redirect directly to PayPal login page
+            response.sendRedirect(approvalLink);
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error creating payment: " + e.getMessage());
+        }
     }
-}
 
     @GetMapping("/success")
     public ResponseEntity<String> paymentSuccess(@RequestParam("paymentId") String paymentId,
