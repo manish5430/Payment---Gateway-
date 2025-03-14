@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 import java.io.Serial;
 import java.time.Instant;
-import java.time.LocalDate;
+//import java.time.LocalDate;
 
 @Entity
 @Table(name = "tb_payment_ticket")

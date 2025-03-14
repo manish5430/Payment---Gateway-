@@ -1,12 +1,12 @@
 package com.flavio.spring_mc.entities.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDate;
+//import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 

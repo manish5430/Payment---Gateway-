@@ -1,6 +1,6 @@
 package com.flavio.spring_mc.entities.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+//import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
