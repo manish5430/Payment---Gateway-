@@ -8,3 +8,5 @@ Welcome to the Payment Service developed in Java using Spring Boot! This project
 - Relationship management between clients, addresses, payments, and products.
 - Modern and scalable architecture.
 
+
+![Log in to your PayPal account - Google Chrome 3_15_2025 9_58_17 AM](https://github.com/user-attachments/assets/cfb22b9a-7951-4b7f-a8e9-d60191c9aee9)
