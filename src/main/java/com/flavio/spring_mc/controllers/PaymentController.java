@@ -27,8 +27,8 @@ public class PaymentController {
                 "paypal",
                 "sale",
                 "Payment description",
-                "https://my-app-hckg.onrender.com/payments/cancel",  // Updated cancel URL
-                "https://my-app-hckg.onrender.com/payments/success" // Updated success URL
+                "https://my-app-hckg.onrender.com/payments/cancel?token=10",  // Updated cancel URL
+                "https://my-app-hckg.onrender.com/payments/success?token=10" // Updated success URL
             );
 
             String approvalLink = payment.getLinks().stream()
