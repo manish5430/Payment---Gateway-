@@ -20,6 +20,7 @@ public class PaymentController {
     @GetMapping("/create")
     public void createPayment(@RequestParam double total, HttpServletResponse response) throws IOException {
         try {
+            // Updated cancel and success URLs with the correct domain (Render link)
             Payment payment = payPalService.createPayment(
                 total,
                 "USD",
@@ -60,8 +61,10 @@ public class PaymentController {
     }
 
     @GetMapping("/cancel")
-    public ResponseEntity<String> paymentCancel() {
-        System.out.println("💡 Payment cancelled");
-        return ResponseEntity.ok("Payment was cancelled.");
+    public ResponseEntity<String> paymentCancel(@RequestParam("token") String token) {
+        // ✅ Log to check if the cancel request is hit and the token received
+        System.out.println("💡 Payment cancelled with token: " + token);
+
+        return ResponseEntity.ok("Payment was cancelled with token: " + token);
     }
 }
